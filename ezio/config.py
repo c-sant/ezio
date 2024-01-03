@@ -87,7 +87,7 @@ def set_engine(new_engine: str):
 
     Args:
         new_engine (str): The name of the new backend engine. Supported values:
-        "pandas", "polars".
+        "pandas".
 
     Raises:
         InvalidBackendEngineError: If the specified engine name is not supported.
