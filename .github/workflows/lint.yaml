@@ -23,6 +23,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Check code format (Black)
-        run: black api --check --diff
+        run: black ezio --check --diff
       - name: Run static code analysis (Pylint)
-        run: pylint api --disable=C0114,W0718,W0719,R0903,W0613,R0801
+        run: pylint ezio --disable=C0114,W0718,W0719,R0903,W0613,R0801
