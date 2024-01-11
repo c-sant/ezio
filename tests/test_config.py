@@ -1,12 +1,12 @@
 import pytest
 
-from ezio.config import EzioConfig, load_config, set_engine
+from ezio.config import EzioConfig, load_config_from_file, set_engine
 from ezio.engine.pandas import PandasEngine
 from ezio.exception import InvalidBackendEngineError
 
 
 def test_load_config_function(sample_config_path: str):
-    load_config(sample_config_path)
+    load_config_from_file(sample_config_path)
     assert EzioConfig._config_tree == {
         "element1": {"key1": "value1"},
         "element2": {"key2": "value2"},
@@ -14,7 +14,7 @@ def test_load_config_function(sample_config_path: str):
 
 
 def test_load_config_class_method(sample_config_path: str):
-    EzioConfig.load_config(sample_config_path)
+    EzioConfig.load_from_file(sample_config_path)
     assert EzioConfig._config_tree == {
         "element1": {"key1": "value1"},
         "element2": {"key2": "value2"},
@@ -23,12 +23,12 @@ def test_load_config_class_method(sample_config_path: str):
 
 def test_load_config_function_with_invalid_path_should_raise_error():
     with pytest.raises(FileNotFoundError):
-        load_config("nonexistent_file.toml")
+        load_config_from_file("nonexistent_file.toml")
 
 
 def test_load_config_class_method_with_invalid_path_should_raise_error():
     with pytest.raises(FileNotFoundError):
-        EzioConfig.load_config("nonexistent_file.toml")
+        EzioConfig.load_from_file("nonexistent_file.toml")
 
 
 @pytest.mark.parametrize(
@@ -41,13 +41,13 @@ def test_load_config_class_method_with_invalid_path_should_raise_error():
 def test_get_element_from_config_tree(
     sample_config_path: str, element: str, result: dict[str, str]
 ):
-    load_config(sample_config_path)
+    load_config_from_file(sample_config_path)
 
     assert EzioConfig.get(element) == result
 
 
 def test_get_should_return_none_when_element_is_missing(sample_config_path: str):
-    load_config(sample_config_path)
+    load_config_from_file(sample_config_path)
 
     assert EzioConfig.get("nonexistent_element") is None
 

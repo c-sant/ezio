@@ -13,24 +13,24 @@ def get_mock_data() -> pd.DataFrame:
 
 def mock_excel_table():
     data = get_mock_data()
-    data.to_excel("data.xlsx", index=False)
+    data.to_excel("data/data.xlsx", index=False)
 
 
 def mock_csv_table():
     data = get_mock_data()
-    data.to_csv("data.csv", index=False)
+    data.to_csv("data/data.csv", index=False)
 
 
 def mock_text_table():
     data = get_mock_data()
-    data.to_csv("data.txt", index=False)
+    data.to_csv("data/data.txt", index=False)
 
 
 def mock_json_table():
     data = get_mock_data()
-    data.to_json("data.json", index=False)
+    data.to_json("data/data.json", index=False)
 
 
 def mock_parquet_table():
     data = get_mock_data()
-    data.to_parquet("data.parquet", index=False)
+    data.to_parquet("data/data.parquet", index=False)

@@ -1,3 +1,5 @@
+import glob
+
 import toml
 
 from .engine import BackendEngine, PandasEngine
@@ -16,14 +18,33 @@ class EzioConfig:
     _engine = PandasEngine
 
     @classmethod
-    def load_config(cls, config_file_path: str):
+    def load_from_file(cls, file_path: str):
         """Load the configuration from a TOML file.
 
         Args:
-            config_file_path (str): The path to the TOML configuration file.
+            file_path (str): The path to the TOML configuration file.
         """
 
-        cls._config_tree = toml.load(config_file_path)
+        cls._config_tree = toml.load(file_path)
+
+    @classmethod
+    def load_from_folder(cls, folder_path: str):
+        """Load configuration from multiple TOML files in a folder.
+
+        Args:
+            folder_path (str): The path to the folder containing TOML configuration
+            files.
+        """
+
+        file_paths = sorted(glob.glob(f"{folder_path}/*.toml"))
+
+        config_tree = {}
+
+        for file_path in file_paths:
+            current_file = toml.load(file_path)
+            config_tree.update(current_file)
+
+        cls._config_tree = config_tree
 
     @classmethod
     def get(cls, element: str) -> dict:
@@ -72,14 +93,25 @@ class EzioConfig:
         cls._engine = engine
 
 
-def load_config(config_file_path: str):
+def load_config_from_file(file_path: str):
     """Load the EzIO configuration from a TOML file.
 
     Args:
-        config_file_path (str): The path to the TOML configuration file.
+        file_path (str): The path to the TOML configuration file.
     """
 
-    EzioConfig.load_config(config_file_path)
+    EzioConfig.load_from_file(file_path)
+
+
+def load_config_from_folder(folder_path: str):
+    """Load the EzIO configuration from multiple TOML files in a folder.
+
+    Args:
+        folder_path (str): The path to the folder containing the TOML configuration
+        files.
+    """
+
+    EzioConfig.load_from_folder(folder_path)
 
 
 def set_engine(new_engine: str):
