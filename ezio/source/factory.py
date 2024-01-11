@@ -1,6 +1,6 @@
 from ..exception import InvalidSourceType
 from .base import DataSource
-from .local_file_system import LocalFileSystemDataSource
+from .local_directory import LocalDirectoryDataSource
 
 
 def get_data_source(source_metadata: dict) -> DataSource:
@@ -20,7 +20,8 @@ def get_data_source(source_metadata: dict) -> DataSource:
     source_type = source_metadata["type"]
 
     match source_type:
-        case "localFileSystem":
-            return LocalFileSystemDataSource()
+        case "localDirectory":
+            local_directory_path = source_metadata["path"]
+            return LocalDirectoryDataSource(local_directory_path)
         case _:
             raise InvalidSourceType(source_type)

@@ -32,7 +32,8 @@ def config_path_fixture() -> str:
             textwrap.dedent(
                 """
             [sources.localStorage]
-            type = "localFileSystem"
+            type = "localDirectory"
+            path = "data"
 
             [test.excel]
             path = "data.xlsx"

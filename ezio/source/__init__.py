@@ -1,7 +1,7 @@
 from .factory import get_data_source
-from .local_file_system import LocalFileSystemDataSource
+from .local_directory import LocalDirectoryDataSource
 
 __all__ = [
-    "LocalFileSystemDataSource",
+    "LocalDirectoryDataSource",
     "get_data_source",
 ]

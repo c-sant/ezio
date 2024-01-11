@@ -51,3 +51,11 @@ class InvalidSQLiteDatabasePath(Exception):
     def __init__(self, db_path: str):
         super().__init__(f"Invalid SQLite database path: {db_path}")
         self.db_path = db_path
+
+
+class SpecifiedPathDoesNotExistError(Exception):
+    """Exception raised when an invalid path is passed for a local directory."""
+
+    def __init__(self, invalid_path: str):
+        super().__init__(f"Invalid local directory path: {invalid_path}")
+        self.invalid_path = invalid_path
