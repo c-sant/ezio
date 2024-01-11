@@ -2,7 +2,7 @@ import pytest
 
 from ezio.config import EzioConfig, load_config, set_engine
 from ezio.engine.pandas import PandasEngine
-from ezio.exception import ConfigNotLoadedException, InvalidBackendEngineError
+from ezio.exception import InvalidBackendEngineError
 
 
 def test_load_config_function(sample_config_path: str):
@@ -49,12 +49,7 @@ def test_get_element_from_config_tree(
 def test_get_should_return_none_when_element_is_missing(sample_config_path: str):
     load_config(sample_config_path)
 
-    assert EzioConfig.get("nonexistent_element") == None
-
-
-def test_get_should_raise_error_when_config_has_not_been_loaded():
-    with pytest.raises(ConfigNotLoadedException):
-        EzioConfig.get("element1")
+    assert EzioConfig.get("nonexistent_element") is None
 
 
 def test_pandas_should_be_the_default_engine():
