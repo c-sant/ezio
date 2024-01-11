@@ -36,4 +36,5 @@ class LocalDirectoryDataSource(DataSource):
 
     def save_table(self, table: TableLike, table_data: dict, **kwargs):
         engine = EzioConfig.get_engine()
+        table_data["path"] = os.path.join(self.path, table_data["path"])
         engine.save_table_as_file(table, table_data, **kwargs)
